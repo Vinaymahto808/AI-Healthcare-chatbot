@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import traceback
 from flask import Flask, request, jsonify, render_template, session
 import importlib
 
@@ -19,7 +20,11 @@ def load_bot():
         print(f"Models loaded in {time.time()-t0:.1f}s")
     return bot
 
-load_bot()
+try:
+    load_bot()
+except Exception:
+    traceback.print_exc()
+    print("Models failed to load at startup. Will retry on first request.")
 
 app = Flask(__name__)
 app.secret_key = "healthcare-chatbot-secret-key"
@@ -49,6 +54,7 @@ def chat():
         b = load_bot()
         chat_hear = b.getresponse(msg)
     except Exception as e:
+        traceback.print_exc()
         return jsonify({"reply": "Sorry, I couldn't process that. Please rephrase your symptom.", "type": "bot"})
 
     if len(chat_hear) == 1:
@@ -85,6 +91,7 @@ def symptom_answer():
 
         return jsonify({"type": "result", "reply": result, "maps_url": maps_url})
     except Exception as e:
+        traceback.print_exc()
         return jsonify({"type": "bot", "reply": "Diagnosis complete. Based on your symptoms, please consult a doctor for a thorough checkup."})
 
 @app.route("/api/search", methods=["POST"])
