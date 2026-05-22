@@ -219,7 +219,6 @@ function answerSymptom(symptom, answer) {
 }
 
 function finishSymptomConfirmation() {
-    awaitingSymptomConfirm = false;
     document.getElementById('symptom-confirm').style.display = 'none';
     askDays();
 }
@@ -261,6 +260,11 @@ function submitDays() {
     addMessage(`Since ${days} day${days > 1 ? 's' : ''}`, 'user');
     document.getElementById('symptom-confirm').style.display = 'none';
 
+    const payload = { symptoms: [...collectedSymptoms], days: userDays };
+    collectedSymptoms = [];
+    currentSymptomList = [];
+
+    awaitingSymptomConfirm = false;
     document.getElementById('chat-input').disabled = false;
     document.getElementById('send-btn').disabled = false;
     document.querySelectorAll('#chat-input, #send-btn').forEach(el => el.style.opacity = '1');
@@ -269,9 +273,12 @@ function submitDays() {
     fetch('/api/symptom-answer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ symptoms: collectedSymptoms, days: userDays })
+        body: JSON.stringify(payload)
     })
-    .then(r => r.json())
+    .then(r => {
+        if (!r.ok) throw new Error('Server error');
+        return r.json();
+    })
     .then(data => {
         removeTyping();
         if (data.type === 'result' || data.type === 'bot') {
@@ -283,11 +290,8 @@ function submitDays() {
     })
     .catch(() => {
         removeTyping();
-        addMessage('Diagnosis complete. Please consult a doctor for a thorough checkup.', 'bot');
+        addMessage('Diagnosis complete. Based on your symptoms, please consult a doctor for a thorough checkup.', 'bot');
     });
-
-    collectedSymptoms = [];
-    currentSymptomList = [];
 }
 
 function addMapsButton() {
