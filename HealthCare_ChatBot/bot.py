@@ -11,20 +11,22 @@ from nn_model import NeuralNet
 #******************************************* for Device ***********************************************
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# remove warning 
-import warnings
-def warn(*args, **kwargs):
-    pass
-warnings.warn = warn
-
 # =====================================================  LOAD MODELS ==================================================
 dtc , le  = pk.load(open('./chatbot_modelsave','rb'))
 model,second_le  = pk.load(open('./chatbot_model','rb'))
-ners = pk.load(open('./newsave_model','rb'))
+from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
+PRETRAINED_NER = "raynardj/ner-disease-ncbi-bionlp-bc5cdr-pubmed"
+ner_model = AutoModelForTokenClassification.from_pretrained(PRETRAINED_NER)
+ner_tokenizer = AutoTokenizer.from_pretrained(PRETRAINED_NER)
+ners = pipeline(task="ner", model=ner_model, tokenizer=ner_tokenizer, framework="pt")
 
 # Load NN Model 
 FILE = "./data.pth"
 data = torch.load(FILE)
+
+# suppress warnings after all models loaded
+import warnings
+warnings.filterwarnings("ignore")
 
 # -------------------------------------- initlising Global varible ----------------------
 return_input_disease = []

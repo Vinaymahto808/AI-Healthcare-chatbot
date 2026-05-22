@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAssist - AI Symptom Checker & Health Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading HealthCare Assistant...</p>
+    </div>
+
+    <div id="welcome-screen">
+        <nav class="landing-nav">
+            <div class="nav-inner">
+                <div class="nav-logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>MediAssist</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#about">About</a>
+                </div>
+                <button class="nav-cta" onclick="scrollToForm()">Get Started</button>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i class="fas fa-robot"></i> AI-Powered Health Assistant
+                    </div>
+                    <h1>Understand Your<br><span>Symptoms</span> Instantly</h1>
+                    <p>Describe how you're feeling and get intelligent insights about potential conditions, precautions, and when to seek medical help — all from the comfort of your home.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">132+</span>
+                            <span class="stat-label">Symptoms Covered</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">41</span>
+                            <span class="stat-label">Diseases Diagnosed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">AI</span>
+                            <span class="stat-label">Powered Analysis</span>
+                        </div>
+                    </div>
+                    <div class="hero-form">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="user-name-input" placeholder="Enter your name to begin..." maxlength="30">
+                        </div>
+                        <button id="start-chat-btn">
+                            Start Consultation
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p class="hero-disclaimer">
+                        <i class="fas fa-shield-alt"></i> This tool provides informational insights only. Not a substitute for professional medical advice.
+                    </p>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card main-card">
+                        <div class="card-icon"><i class="fas fa-comment-medical"></i></div>
+                        <div class="card-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="chat-preview">
+                            <div class="preview-msg bot">
+                                <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                                <div class="msg-bubble">Hello! What symptoms are you experiencing?</div>
+                            </div>
+                            <div class="preview-msg user">
+                                <div class="msg-bubble">I have a fever and headache</div>
+                                <div class="msg-avatar"><i class="fas fa-user"></i></div>
+                            </div>
+                            <div class="preview-msg bot">
+                                <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                                <div class="msg-bubble">Let me analyze that for you...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-card secondary-card card-1">
+                        <i class="fas fa-stethoscope"></i>
+                        <span>Symptom Analysis</span>
+                    </div>
+                    <div class="hero-card secondary-card card-2">
+                        <i class="fas fa-notes-medical"></i>
+                        <span>Health Insights</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section" id="features">
+            <div class="section-label">Features</div>
+            <h2>Why Choose MediAssist?</h2>
+            <p class="section-sub">Intelligent healthcare guidance powered by machine learning and medical data.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#dbeafe;color:#2563eb;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Diagnosis</h3>
+                    <p>Advanced ML models analyze your symptoms against a comprehensive medical database to provide accurate condition predictions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#d1fae5;color:#059669;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Privacy First</h3>
+                    <p>Your health data stays private. No accounts required, no data stored — completely anonymous symptom checking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#fef3c7;color:#d97706;">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Actionable Insights</h3>
+                    <p>Get not just condition names but detailed descriptions, precautions, and clear guidance on next steps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#fce7f3;color:#db2777;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>No waiting rooms, no appointments. Describe your symptoms and receive analysis within seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#ede9fe;color:#7c3aed;">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Hospital Finder</h3>
+                    <p>If your symptoms are severe, we help you find nearby hospitals and medical facilities immediately.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:#e0f2fe;color:#0284c7;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Medical Knowledge Base</h3>
+                    <p>Built on extensive medical data covering 132+ symptoms and 41 diseases with professional descriptions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works" id="how-it-works">
+            <div class="section-label">How It Works</div>
+            <h2>Three Simple Steps</h2>
+            <p class="section-sub">Getting started is quick and easy. No sign-ups, no complexity.</p>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+                    <h3>Describe Symptoms</h3>
+                    <p>Tell us what you're feeling — fever, cough, headache, or any other symptom you're experiencing.</p>
+                </div>
+                <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Analysis</h3>
+                    <p>Our AI engine cross-references your symptoms with medical data to identify potential conditions.</p>
+                </div>
+                <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Get Guidance</h3>
+                    <p>Receive detailed insights, precautions, and recommendations for your next steps.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-label">About</div>
+                    <h2>Empowering Health Decisions</h2>
+                    <p>MediAssist is an intelligent symptom checker designed to help you understand potential health conditions based on your symptoms. Whether it's a common cold or something that needs attention, we provide the information you need to make informed decisions.</p>
+                    <p>Built with advanced NLP models and medical datasets, our system continuously learns to provide more accurate assessments. Remember — always consult a healthcare professional for proper diagnosis.</p>
+                    <div class="about-trust">
+                        <div><i class="fas fa-check-circle" style="color:#059669;"></i> Evidence-Based Analysis</div>
+                        <div><i class="fas fa-check-circle" style="color:#059669;"></i> Confidential & Secure</div>
+                        <div><i class="fas fa-check-circle" style="color:#059669;"></i> Free to Use</div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f4f8' rx='20'/%3E%3Cpath d='M200 60 L200 240 M120 120 L280 120' stroke='%232563eb' stroke-width='4' stroke-dasharray='8 8' opacity='0.3'/%3E%3Ccircle cx='200' cy='120' r='50' fill='%232563eb' opacity='0.1'/%3E%3Ccircle cx='200' cy='120' r='30' fill='%232563eb' opacity='0.15'/%3E%3Ccircle cx='200' cy='120' r='12' fill='%232563eb'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='%2364786b' font-family='sans-serif' font-size='14'%3EMedical Knowledge Graph%3C/text%3E%3C/svg%3E"
+                         alt="Medical Knowledge Graph" style="max-width:100%;border-radius:20px;">
+                </div>
+            </div>
+        </section>
+
+        <footer class="landing-footer">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>MediAssist</span>
+                </div>
+                <p>AI-powered symptom checker for informed health decisions. Always consult a doctor for medical advice.</p>
+                <div class="footer-links">
+                    <span>Privacy Policy</span>
+                    <span>Terms of Use</span>
+                    <span>Contact</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MediAssist. Not a substitute for professional medical advice.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="main-app" class="hidden">
+        <div class="app-container">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="user-profile">
+                        <div class="avatar" id="sidebar-avatar">U</div>
+                        <div>
+                            <p class="user-name" id="sidebar-name">User</p>
+                            <p class="user-status">Online</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-search">
+                    <h3><i class="fas fa-search"></i> Search Symptoms</h3>
+                    <div class="search-box">
+                        <input type="text" id="symptom-search" placeholder="Type to search symptoms..." autocomplete="off">
+                    </div>
+                    <div class="search-results" id="search-results">
+                        <p class="search-hint">Start typing to see matching symptoms</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-examples">
+                    <h3><i class="fas fa-list-ul"></i> Example Symptoms</h3>
+                    <div class="example-chips" id="example-chips"></div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <p><i class="fas fa-info-circle"></i> Your data stays private</p>
+                </div>
+            </aside>
+
+            <main class="chat-area">
+                <div class="chat-header">
+                    <button class="mobile-menu-btn" id="menu-toggle"><i class="fas fa-bars"></i></button>
+                    <div class="chat-header-info">
+                        <div class="chat-avatar"><i class="fas fa-robot"></i></div>
+                        <div>
+                            <h2>MediAssist</h2>
+                            <p>AI-Powered Symptom Checker</p>
+                        </div>
+                    </div>
+                    <button class="clear-chat-btn" id="clear-chat" title="Clear conversation"><i class="fas fa-trash-alt"></i></button>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="message-content">
+                            <p>Hello! I'm MediAssist. Please tell me what symptoms you're experiencing. For example: fever, cough, headache, stomach pain, etc.</p>
+                            <span class="message-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="symptom-confirm-container" id="symptom-confirm" style="display:none;">
+                    <div class="symptom-progress" id="symptom-progress"></div>
+                    <p class="symptom-question" id="symptom-question"></p>
+                    <div class="symptom-buttons">
+                        <button class="btn-yes" id="btn-yes"><i class="fas fa-check"></i> Yes</button>
+                        <button class="btn-no" id="btn-no"><i class="fas fa-times"></i> No</button>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <button class="attach-btn" id="suggest-btn" title="Suggest symptom"><i class="fas fa-plus-circle"></i></button>
+                    <input type="text" id="chat-input" placeholder="Type your symptom here..." autocomplete="off">
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="symptom-suggestions" id="symptom-suggestions">
+        <div class="suggestions-header">
+            <span>Suggest a symptom</span>
+            <button id="close-suggestions"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="suggestions-grid" id="suggestions-grid"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

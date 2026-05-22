@@ -1,6 +1,9 @@
-from transformers import pipeline
+from transformers import AutoModelForTokenClassification, AutoTokenizer, pipeline
+import torch
 PRETRAINED = "raynardj/ner-disease-ncbi-bionlp-bc5cdr-pubmed"
-ners = pipeline(task="ner",model=PRETRAINED, tokenizer=PRETRAINED)
+model = AutoModelForTokenClassification.from_pretrained(PRETRAINED)
+tokenizer = AutoTokenizer.from_pretrained(PRETRAINED)
+ners = pipeline(task="ner", model=model, tokenizer=tokenizer, framework="pt")
 
 import pickle as pk
 with open('newsave_model', 'wb') as f:
